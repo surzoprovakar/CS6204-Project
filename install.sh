@@ -8,7 +8,7 @@ sudo apt install python3.10
 sudo apt-get -y install python3-pip
 
 # Install Simpy
-pip3  install -U simpy -y
+pip3  install -U simpy 
 
 # Install PyCryptodome
-pip3 install -U PyCryptodome -y
+pip3 install -U PyCryptodome 
