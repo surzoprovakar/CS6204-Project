@@ -33,14 +33,15 @@ import time
 from cairo import Region
 from helper_methods import *
 from sla_script import *
+from pycrypto import *
 
 import simpy
 
-mode = 0
+mode = 1
 RANDOM_SEED = 42
 SIM_TIME = 30
 
-
+privatekey,publickey = rsakeys()
 
 class BroadcastPipe(object):
     """A Broadcast pipe that allows one process to send messages to many.
@@ -101,7 +102,8 @@ def message_generator(name, env, out_pipe):
         else:
             opt = "Inc"
 
-        msg = (env.now, '%s sends %d at time %d as %s' % (name, val, env.now, opt))
+        ciphertext = encrypt(publickey, str(val))
+        msg = (env.now, '%s sends %s at time %d as %s' % (name, ciphertext, env.now, opt))
         out_pipe.put(msg)
 
 
@@ -130,7 +132,9 @@ def message_consumer(name, env, in_pipe, value, trust_dict, c, conn):
         split = msg[1].split(" ")
         current_value = value
         requester = split[1]
-        req_value = split[3]
+        encrypted_val = split[3]
+        req_value = decrypt(privatekey, encrypted_val.encode('utf-8'))
+        
         req_time = split[6]
         opt_type = split[8]
         receive_time = env.now
@@ -244,4 +248,3 @@ env.process(message_consumer('Replica D', env, bc_pipe.get_output_connA(), 0, {'
 
 # print('\nOne-to-many pipe communication\n')
 env.run(until=SIM_TIME)
-
