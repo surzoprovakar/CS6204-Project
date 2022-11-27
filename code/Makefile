@@ -1,4 +1,4 @@
 run:
-	python3 process_communication.py
+	python3 replicas_communication.py
 clean:
 	@rm -rf *.txt *.db __pycache__/
