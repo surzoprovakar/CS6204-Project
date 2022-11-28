@@ -39,7 +39,7 @@ import simpy
 
 mode = 1
 RANDOM_SEED = 42
-SIM_TIME = 30
+SIM_TIME = 300
 
 privatekey,publickey = rsakeys()
 
