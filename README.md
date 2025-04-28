@@ -36,8 +36,8 @@ This project builds a **self-managing, trust-aware** replication system that aut
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/surzoprovakar/CS6204-Project.git
-   cd CS6204-Project
+   git clone https://github.com/surzoprovakar/CS6204-Project-Trust-RDL.git
+   cd CS6204-Project-Trust-RDL
 
 
 ## Installation
